@@ -1,0 +1,23 @@
+---
+- name: Check if listed package is installed or not on RedHat
+  command: rpm -q "{{ item }}"
+  loop: "{{ package_name }}"
+  register: package_check
+  when: ansible_facts['os_family'] == "RedHat"
+  ignore_errors: true
+
+- name: print results on fail
+  debug:
+    msg: "package is not installed"
+  when: package_check is failed
+
+- name: print results on success
+  debug:
+    msg: "Package is Present"
+  when: package_check is succeeded
+
+- name: uninstall trendmicro
+  package:
+    name: trendmicro
+    state: absent
+  when: package_check is succeeded

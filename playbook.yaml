@@ -1,0 +1,15 @@
+- hosts: all
+  become: true
+  #roles:
+    #- install_mdatp_on_clients
+    #- uninstall_trendm
+  tasks:
+    - name: Execute remote script
+      command: sudo sh /myscript.sh
+      register: myoutput
+      args:
+        chdir: /
+    - name: display the output
+      debug:
+        msg: "{{ myoutput.stdout }}"
+

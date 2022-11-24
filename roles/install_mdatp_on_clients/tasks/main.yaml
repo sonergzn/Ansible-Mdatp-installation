@@ -1,0 +1,3 @@
+- name: install and onboard clients
+  include: install_onboard_clients.yaml
+
