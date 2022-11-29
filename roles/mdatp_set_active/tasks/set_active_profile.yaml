@@ -1,0 +1,9 @@
+- name: Copy ACTIVE(real-time) profile config file to remote
+  tags: passive
+  template:
+    src: mdatp_managed.j2
+    dest: /etc/opt/microsoft/mdatp/managed/mdatp_managed.json
+    owner: root
+    group: root
+    mode: 0600
+  #when: ansible_os_family == "RedHat"

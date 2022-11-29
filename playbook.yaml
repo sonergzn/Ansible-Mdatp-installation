@@ -1,9 +1,17 @@
 - hosts: all
   become: true
-  #roles:
-    #- install_mdatp_on_clients
+  roles:
+    - install_mdatp_on_clients
     #- uninstall_trendm
+    #- mdatp_set_active
   tasks:
+    - name: check current enforcement level
+      command: mdatp health --field real_time_protection_enabled
+      register: real_time_result
+    - name: Display Enforcement level output per host
+      debug:
+        msg: "{{ real_time_result.stdout }}"
+
     - name: Execute remote script
       command: sudo sh /myscript.sh
       register: myoutput
