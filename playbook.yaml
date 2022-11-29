@@ -1,5 +1,6 @@
 - hosts: all
   become: true
+  #debugger: on_skipped
   roles:
     - install_mdatp_on_clients
     #- uninstall_trendm
@@ -12,12 +13,12 @@
       debug:
         msg: "{{ real_time_result.stdout }}"
 
-    - name: Execute remote script
-      command: sudo sh /myscript.sh
-      register: myoutput
-      args:
-        chdir: /
-    - name: display the output
-      debug:
-        msg: "{{ myoutput.stdout }}"
+    #- name: Execute remote script
+    #  command: sudo sh /myscript.sh
+    #  register: myoutput
+    #  args:
+    #    chdir: /
+    #- name: display the output
+    #  debug:
+    #    msg: "{{ myoutput.stdout }}"
 

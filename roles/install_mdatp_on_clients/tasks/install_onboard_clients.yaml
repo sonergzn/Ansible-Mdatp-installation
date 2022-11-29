@@ -57,8 +57,14 @@
     path: /etc/opt/microsoft/mdatp/mdatp_onboard.json
   register: mdatp_onboard
 
-#requirement for this task: you need to first download the package into the ansible-mdapt/files/ directory and unzip it.
-- name: Copy MicrosoftDefenderATPOnboardingLinuxServer.py into /etc/opt/microsoft/mdatp
+#requirement for this task: you need to first download the package into the ansible-mdapt/files/ directory.
+- name: UNZIP onboarding packages-microsoft 
+  unarchive: 
+    src: /home/soner/TEST_TRAINING/ansible-mdapt/Ansible-Mdatp-installation/roles/install_mdatp_on_clients/files/WindowsDefenderATPOnboardingPackage.zip
+    dest: /home/soner/TEST_TRAINING/ansible-mdapt/Ansible-Mdatp-installation/roles/install_mdatp_on_clients/files/
+  delegate_to: localhost #running this task on the "Controller machine".
+
+- name: Copy MicrosoftDefenderATPOnboardingLinuxServer.py into remote folder -> /etc/opt/microsoft/mdatp
   copy:
     src: MicrosoftDefenderATPOnboardingLinuxServer.py
     dest: /etc/opt/microsoft/mdatp
