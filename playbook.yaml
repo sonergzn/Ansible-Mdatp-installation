@@ -2,7 +2,7 @@
   become: true
   #debugger: on_skipped
   roles:
-    - install_mdatp_on_clients
+    #- install_mdatp_on_clients
     #- uninstall_trendm
     #- mdatp_set_active
   tasks:
@@ -12,6 +12,15 @@
     - name: Display Enforcement level output per host
       debug:
         msg: "{{ real_time_result.stdout }}"
+
+    - name: Set GLOBAL env var on REMOTE Machine
+      ansible.builtin.lineinfile:
+        path: /etc/environment
+        line: "ansibleglob='This is an ansible var set with ansible'"
+        state: present
+
+    - name: Source the /etc/env
+      shell: source /etc/environment
 
     #- name: Execute remote script
     #  command: sudo sh /myscript.sh
