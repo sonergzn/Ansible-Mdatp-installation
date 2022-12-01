@@ -17,10 +17,12 @@
       ansible.builtin.lineinfile:
         path: /etc/environment
         line: "ansibleglob='This is an ansible var set with ansible'"
-        state: present
+        state: absent
+      register: setenv
 
     - name: Source the /etc/env
       shell: source /etc/environment
+      when: setenv is changed 
 
     #- name: Execute remote script
     #  command: sudo sh /myscript.sh
